@@ -1,32 +1,24 @@
+
+
 import os
 from sys import *
 import shutil
 from pathlib import *
 
 def CopyDirectoryData(Old_Dirname,New_Dirname,Extention):
-    
-    flag = os.path.isabs(Old_Dirname)
-    if flag == False:
-        Old_Dirname = os.path.abspath(Old_Dirname)
 
-    exists = os.path.isdir(Old_Dirname)
+    src = Old_Dirname
+    trg = os.mkdir(New_Dirname)
 
-    for foldername, subfolder, Filenames in os.walk(Old_Dirname):
-        os.mkdir(New_Dirname)
-        
-        #for subf in subfolder:
-            #print("Subfolder name of "+foldername+" is "+subf)
-        try:
-            for fnames in Filenames:
-                dest1 = New_Dirname +fnames
-                
+    files = os.listdir(src)
+    try:
+        for fname in files:
+            #if fname.endswith(Extention):
+            shutil.copy(os.path.join(src,fname),trg)
 
-                if fnames.endswith(Extention):
-                    
-                    shutil.copyfile(exists,dest1)
-        except:
-            pass
-    
+    except:
+        pass
+
 def main():
     print("arguments",len(argv))
     if(len(argv) != 4 ):
