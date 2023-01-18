@@ -1,28 +1,42 @@
-def MaxNumber(Brr):
 
-    imax = 0    
-    for i in range(0,len(Brr)):
-        if imax < Brr[i]:
-            imax = Brr[i]
+import threading
 
-    return imax
+def EvenFactor(No):
+    Sum = 0
+    for i in range(1,No):
+        if No % i == 0 and i % 2 == 0:
+            Sum = Sum + i
 
+    print("Addition of Even Factors :",Sum)
+
+            
+def OddFactor(No):
+    Sum = 0 
+    for i in range(1,No):
+        if(No % i == 0)and(i % 2 != 0):
+            Sum = Sum + i
+    
+    print(" Addition of Odd Factors : ",Sum)
+   
+    
 
 def main():
 
-    print("Enter number of elements :")
-    a = int(input())
+    Number = 10
 
-    Arr = []
-    print("Enter elements")
+    p1= threading.Thread(target= EvenFactor ,args = (Number ,))
+    p2= threading.Thread(target= OddFactor  ,args = (Number ,))
 
-    for i in range(0,a):
-        b = int(input())
-        Arr.append(b)
+    p1.start()
+    p2.start()
+    
+    p1.join()
+    p2.join()
 
-    ret = MaxNumber(Arr)
-    print("Maximum number from the list is:",ret)
+    print("Exit from main")
 
 
-if __name__ =="__main__":
+
+
+if __name__ == "__main__":
     main()

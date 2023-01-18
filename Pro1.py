@@ -1,27 +1,34 @@
-def AdditionList(Brr):
+import threading
 
-    sum =0
-    for i in range(0,len(Brr)):
-        sum = sum + Brr[i]
+def ChkEven(No):
+         
+    for i in range(1,No):
+        if(i % 2 != 0):
+            print("Even number : ",i)
 
-    return sum
-
+    
+            
+def ChkOdd(No):
+     for i in range(1,No):
+        if(i % 2 == 0) and i < 11:
+            print("Odd number : ",i)
+            
+   
+    
 
 def main():
 
-    print("Enter number of elements :")
-    a = int(input())
+    Number = 10
 
-    Arr = []
-    print("Enter elements")
+    p1= threading.Thread(target=ChkEven ,args = (Number ,))
+    p2= threading.Thread(target= ChkOdd  ,args = (Number ,))
 
-    for i in range(0,a):
-        b = int(input())
-        Arr.append(b)
-
-    ret = AdditionList(Arr)
-    print("Addition of list elements is:",ret)
+    p1.start()
+    p2.start()
+    
 
 
-if __name__ =="__main__":
+
+
+if __name__ == "__main__":
     main()

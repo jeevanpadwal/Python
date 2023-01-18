@@ -1,32 +1,55 @@
-def Frequency(Brr,No):
 
-    isum =0  
-    for i in range(0,len(Brr)):
-        if Brr[i] == No:
-            isum = isum + 1
+import threading
+import os
+
+def SmallChar(SData):
+    thread = threading.current_thread()
+    print("id of small thread :{} name of thread : {}".format(os.getpid(),thread.name))
+    cnt = 0
+    for i in SData:
+        if i.islower():
+            cnt = cnt + 1
+        
+    print("Number of Small Characters ",cnt)
+
             
+def CapitalChar(SData):
+    thread = threading.current_thread()
+    print("id of small thread :{} name of thread : {}".format(os.getpid(),thread.name))
+    
 
-    return isum
+    cnt = 0
+    for i in SData:
+        if i.isupper():
+            cnt = cnt + 1
+        
+    print("Number of Upeer case Characters ",cnt)
+   
+def DigitCount(SData):
+    print("id of digit thread :",os.getpid())
 
+    cnt = 0
+    for i in SData:
+        if i.isdigit():
+            cnt = cnt + 1
+        
+    print("Number of Digts ",cnt)
 
 def main():
 
-    print("Enter number of elements :")
-    a = int(input())
+    print("Entr the string")
+    str = input()
 
-    Arr = []
-    print("Enter elements")
+    small = threading.Thread(target= SmallChar ,args = (str ,))
+    capital = threading.Thread(target= CapitalChar  ,args = (str ,))
+    digit = threading.Thread(target= DigitCount , args = (str ,))
+    
+   
+    
 
-    for i in range(0,a):
-        b = int(input())
-        Arr.append(b)
+    small.start()
+    capital.start()
+    digit.start()
 
-    print("Enter number to find frequence :")
-    c = int(input())
-
-    ret = Frequency(Arr,c)
-    print("Frequency of the number is :",ret)
-
-
-if __name__ =="__main__":
+if __name__ == "__main__":
     main()
